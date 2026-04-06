@@ -14,6 +14,79 @@
     --header-height: 80px;
 }
 
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal-left.active, .reveal-right.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
 * {
     margin: 0;
     padding: 0;
@@ -87,6 +160,7 @@ section {
 .gradient-text {
     background: var(--gradient-text);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -129,15 +203,10 @@ section {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.btn-outline {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-}
-
 .btn-outline:hover {
     border-color: #ffffff;
     background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-2px);
 }
 
 .btn-whatsapp {
@@ -146,11 +215,13 @@ section {
     width: 100%;
     padding: 1.2rem;
     border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
 }
 
 .btn-whatsapp:hover {
     background: #20ba5a;
-    transform: scale(1.02);
+    transform: scale(1.02) translateY(-2px);
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
 }
 
 .btn-whatsapp i { font-size: 1.5rem; }
@@ -171,6 +242,7 @@ section {
     background: rgba(5, 5, 5, 0.8);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    animation: slideDown 0.8s ease-out;
 }
 
 .nav {
@@ -237,6 +309,7 @@ section {
     font-weight: 800;
     letter-spacing: -0.04em;
     margin-bottom: 2rem;
+    animation: fadeUp 1s ease-out 0.2s both;
 }
 
 .hero-content p {
@@ -244,11 +317,13 @@ section {
     color: var(--text-secondary);
     margin-bottom: 3rem;
     max-width: 500px;
+    animation: fadeUp 1s ease-out 0.4s both;
 }
 
 .hero-btns {
     display: flex;
     gap: 1.5rem;
+    animation: fadeUp 1s ease-out 0.6s both;
 }
 
 .hero-preview {
@@ -264,6 +339,7 @@ section {
     border: 1px solid rgba(255, 255, 255, 0.1);
     transform: rotateY(-10deg) rotateX(5deg);
     transition: var(--transition);
+    animation: scaleIn 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .video-card:hover {
@@ -401,27 +477,40 @@ section {
 }
 
 .price-card:hover {
-    border-color: rgba(255, 255, 255, 0.1);
-    transform: translateY(-5px);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
 }
 
 .price-card.featured {
-    background: #ffffff10;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
-    z-index: 2;
+    background: linear-gradient(145deg, #111 0%, #050505 100%);
+    border: 2px solid #ffffff; /* Metal effect combined with box-shadow */
+    transform: scale(1.08);
+    z-index: 10;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1), 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+.price-card.featured:hover {
+    transform: scale(1.1);
+    border-color: #ffffff;
+    box-shadow: 0 0 50px rgba(255, 255, 255, 0.15), 0 30px 60px rgba(0, 0, 0, 0.8);
 }
 
 .best-value {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: #ffffff;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-titanium);
     color: #000;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 800;
-    padding: 4px 12px;
-    border-radius: 20px;
+    padding: 6px 16px;
+    border-radius: 30px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    white-space: nowrap;
 }
 
 .card-header h3 {
@@ -564,8 +653,18 @@ section {
 /* Responsiveness */
 @media (max-width: 1024px) {
     .hero-content h1 { font-size: 3.5rem; }
-    .pricing-grid { grid-template-columns: 1fr; }
-    .price-card.featured { transform: scale(1); }
+    .pricing-grid { 
+        grid-template-columns: 1fr; 
+        gap: 3rem;
+        padding-top: 2rem;
+    }
+    .price-card.featured { 
+        transform: scale(1.05); 
+        margin: 1rem 0;
+    }
+    .price-card.featured:hover {
+        transform: scale(1.08);
+    }
 }
 
 @media (max-width: 768px) {
